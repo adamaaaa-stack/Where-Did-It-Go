@@ -1,10 +1,12 @@
 # Where Did I Put That?
 
-A local-first semantic file memory engine for macOS, Windows, and Linux.
+**A native desktop application** - local-first semantic file memory engine for macOS, Windows, and Linux.
+
+Built with Electron (same technology as VS Code, Slack, Discord, Obsidian).
 
 ## What It Does
 
-This desktop application helps you find files using natural language, even when you don't remember their names or exact locations. It:
+This **native desktop application** helps you find files using natural language, even when you don't remember their names or exact locations. It:
 
 - Watches selected folders automatically
 - Extracts text from PDFs, documents, and images (OCR)
@@ -12,30 +14,57 @@ This desktop application helps you find files using natural language, even when 
 - Allows natural language search
 - Runs entirely on your computer (privacy-first)
 
-## Installation
+## Installation & Building
 
-### 1. Install Dependencies
+### For Development (Testing)
 
+1. **Install dependencies:**
 ```bash
 npm install
 ```
 
-### 2. Configure API Key
-
-Your GLM API key is already configured in the `.env` file.
-
-### 3. Run the Application
-
-**Development mode:**
+2. **Run in development mode:**
 ```bash
 npm run dev
 ```
+This opens the app window for testing.
 
-**Build for production:**
+### Building the Actual Desktop App
+
+To create a **standalone executable** that you can double-click to run:
+
+**On macOS:**
 ```bash
-npm run build
-npm start
+npm run package:mac
 ```
+Creates: `release/Where Did I Put That.dmg` and `.app` bundle
+
+**On Windows:**
+```bash
+npm run package:win
+```
+Creates: `release/Where Did I Put That Setup.exe` (installer) and portable `.exe`
+
+**On Linux:**
+```bash
+npm run package:linux
+```
+Creates: `release/Where Did I Put That.AppImage` and `.deb` package
+
+**All platforms at once:**
+```bash
+npm run package:all
+```
+
+After building, find your app in the `release/` folder. You can:
+- Double-click to run it
+- Move it to Applications folder (macOS)
+- Install it like any other program (Windows/Linux)
+- Share it with others (they don't need npm/node)
+
+### API Configuration
+
+Your GLM API key is already configured in the `.env` file. When you build the app, the key will be bundled inside the executable.
 
 ## How to Use
 
@@ -156,6 +185,36 @@ API calls are made only when:
 - New files are indexed
 - Files are modified
 - Search queries are executed
+
+## Is This a "Real" Desktop App?
+
+**Yes!** This is a native desktop application built with Electron.
+
+### What you get after building:
+
+- **macOS**: `.app` file you can drag to Applications folder
+- **Windows**: `.exe` installer or portable executable
+- **Linux**: `.AppImage` or `.deb` package you can install
+
+### It's the same technology used by:
+- Visual Studio Code
+- Slack
+- Discord
+- Obsidian
+- Figma Desktop
+- WhatsApp Desktop
+- Microsoft Teams
+
+### Does NOT run in a web browser:
+- ✅ Standalone application
+- ✅ Appears in your dock/taskbar
+- ✅ Works offline
+- ✅ Full file system access
+- ✅ Can be distributed as `.exe`/`.dmg`/`.AppImage`
+- ❌ Does NOT require a browser to be open
+- ❌ Does NOT need internet to run (only for AI embeddings)
+
+When you run `npm run package:mac` (or win/linux), you get a **real executable** that anyone can run without installing Node.js or any development tools.
 
 ## License
 
